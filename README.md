@@ -1,1 +1,1 @@
-application url: https://ancient-river-90641.herokuapp.com/
+application url on heroku: https://ancient-river-90641.herokuapp.com/
