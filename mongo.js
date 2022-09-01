@@ -5,7 +5,7 @@ if (process.argv.length < 3) {
 	process.exit(1)
 }
 
-const password = process.argv[2]
+const password = process.argv[2] || process.env.MONGODB_URI
 const url = `mongodb+srv://fullstackopen:${password}@fullstackopen.nckusuc.mongodb.net/phonebook?retryWrites=true&w=majority`
 
 const personSchema = new mongoose.Schema({
