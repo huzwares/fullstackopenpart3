@@ -1,5 +1,4 @@
 require('dotenv').config()
-const { request } = require('express')
 const express = require('express')
 var morgan = require('morgan')
 const app = express()
@@ -32,14 +31,10 @@ app.get('/info', (request, response) => {
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-	const id = Number(request.params.id)
-	persons = persons.filter(person => person.id !== id)
-	response.status(204).end()
+	Phonebook.findByIdAndRemove(request.params.id).then(result => {
+		response.status(204).end()
+	}).catch(error => console.log(error))
 })
-
-// const randomId = () => {
-// 	return Math.floor(Math.random() * 10000000000 + 4)
-// }
 
 app.post('/api/persons', (request, response) => {
 	const body = request.body
@@ -60,7 +55,6 @@ app.post('/api/persons', (request, response) => {
 	// 	})
 	// }
 	const person = new Phonebook({
-		// id: randomId(),
 		name: body.name,
 		number: body.number,
 	})
