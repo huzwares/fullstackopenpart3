@@ -1,26 +1,28 @@
 {
-  "name": "phonebook_backend",
-  "version": "1.0.0",
-  "description": "fullstackopen 2022 part3",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "rm -rf build && cd ../fullstackopen/part2/phonebook && npm run build && cp -r build ../../../fso-part3",
-    "deploy": "git push heroku main",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
-    "logs:prod": "heroku logs --tail"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "dotenv": "^16.0.2",
-    "express": "^4.18.1",
-    "mongoose": "^6.5.4",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.19"
-  }
+	"name": "phonebook_backend",
+	"version": "1.0.0",
+	"description": "fullstackopen 2022 part3",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build:ui": "rm -rf build && cd ../fullstackopen/part2/phonebook && npm run build && cp -r build ../../../fso-part3",
+		"deploy": "git push heroku main",
+		"deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
+		"logs:prod": "heroku logs --tail",
+		"lint": "eslint ."
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^16.0.2",
+		"express": "^4.18.1",
+		"mongoose": "^6.5.4",
+		"morgan": "^1.10.0"
+	},
+	"devDependencies": {
+		"eslint": "^8.23.0",
+		"nodemon": "^2.0.19"
+	}
 }

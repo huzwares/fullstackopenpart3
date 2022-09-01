@@ -15,8 +15,8 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model('Person', personSchema)
 
-mongoose.connect(url).then((result) => {
-	console.log('connected');
+mongoose.connect(url).then(() => {
+	console.log('connected')
 	if (process.argv.length === 3) {
 		Person.find({}).then(result => {
 			console.log('phonebook:')

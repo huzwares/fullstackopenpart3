@@ -5,10 +5,10 @@ const url = `mongodb+srv://fullstackopen:${password}@fullstackopen.nckusuc.mongo
 
 console.log('connecting to database...')
 
-mongoose.connect(url).then(result => {
+mongoose.connect(url).then(() => {
 	console.log('connected to MongoDB')
 }).catch((err) => {
-	console.log('error connecting to MongoDB: ', err.message);
+	console.log('error connecting to MongoDB: ', err.message)
 })
 
 const personSchema = new mongoose.Schema({
@@ -20,7 +20,7 @@ const personSchema = new mongoose.Schema({
 		type: String,
 		validate: {
 			validator: function (v) {
-				return /\d{2,3}-\d{5,}/.test(v);
+				return /\d{2,3}-\d{5,}/.test(v)
 			},
 			message: props => `${props.value} is not valid phone number!`
 		}

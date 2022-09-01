@@ -1,21 +1,20 @@
 require('dotenv').config()
-const { response } = require('express')
 const express = require('express')
 var morgan = require('morgan')
 const app = express()
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :total-time[3] ms :postLog'))
-morgan.token('postLog', function (req, res) { return JSON.stringify(req.body) })
+morgan.token('postLog', function (req) { return JSON.stringify(req.body) })
 app.use(express.static('build'))
 const Phonebook = require('./modules/person')
 
-app.get('/api/persons', (request, response) => {
+app.get('/api/persons', (request, response, next) => {
 	Phonebook.find({}).then(persons => {
 		response.json(persons)
 	}).catch(error => next(error))
 })
 
-app.get('/api/persons/:id', (request, response) => {
+app.get('/api/persons/:id', (request, response, next) => {
 	Phonebook.findById(request.params.id).then(person => {
 		if (person) {
 			response.json(person)
@@ -25,13 +24,15 @@ app.get('/api/persons/:id', (request, response) => {
 	}).catch(error => next(error))
 })
 
-app.get('/info', (request, response) => {
+app.get('/info', (request, response, next) => {
 	const date = new Date()
-	response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${date}</p>`)
+	Phonebook.find({}).then(persons => {
+		response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${date}</p>`)
+	}).catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-	Phonebook.findByIdAndRemove(request.params.id).then(result => {
+	Phonebook.findByIdAndRemove(request.params.id).then(() => {
 		response.status(204).end()
 	}).catch(error => console.log(error))
 })
