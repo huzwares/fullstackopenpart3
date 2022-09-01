@@ -11,7 +11,7 @@ const Phonebook = require('./modules/person')
 app.get('/api/persons', (request, response) => {
 	Phonebook.find({}).then(persons => {
 		response.json(persons)
-	})
+	}).catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (request, response) => {
@@ -61,8 +61,14 @@ app.post('/api/persons', (request, response) => {
 
 	person.save().then(savedPerson => {
 		response.json(savedPerson)
-	})
+	}).catch(error => next(error))
 })
+
+const errorHandler = (error, request, response, next) => {
+	console.error(error.message)
+	next(error)
+}
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
