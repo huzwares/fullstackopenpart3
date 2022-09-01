@@ -37,9 +37,9 @@ app.delete('/api/persons/:id', (request, response) => {
 	response.status(204).end()
 })
 
-const randomId = () => {
-	return Math.floor(Math.random() * 10000000000 + 4)
-}
+// const randomId = () => {
+// 	return Math.floor(Math.random() * 10000000000 + 4)
+// }
 
 app.post('/api/persons', (request, response) => {
 	const body = request.body
@@ -54,19 +54,20 @@ app.post('/api/persons', (request, response) => {
 			error: 'number missing'
 		})
 	}
-	if (persons.find(person => person.name === body.name)) {
-		return response.status(406).json({
-			error: 'name must be unique'
-		})
-	}
-	const person = {
-		id: randomId(),
+	// if (persons.find(person => person.name === body.name)) {
+	// 	return response.status(406).json({
+	// 		error: 'name must be unique'
+	// 	})
+	// }
+	const person = new Phonebook({
+		// id: randomId(),
 		name: body.name,
 		number: body.number,
-	}
+	})
 
-	persons.concat(person)
-	response.json(person)
+	person.save().then(savedPerson => {
+		response.json(savedPerson)
+	})
 })
 
 const PORT = process.env.PORT || 3001
